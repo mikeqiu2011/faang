@@ -1,18 +1,19 @@
-def findTwoSum(nums, target):
+def find_two_sum(nums, target):
     length = len(nums)
-    if length <= 1:
-        return None
 
     for i in range(length):
-        for j in range(i, length):
-            if nums[i] + nums[j] == target:
-                return (i,j)
+        num_to_find = target - nums[i]
+        for j in range(i + 1, length):
+            if nums[j] == num_to_find:
+                return [i, j]
 
     return None
 
-nums = [1,3,7,9,2]
+
+nums = [1, 3, 7, 9, 2]
+nums = []
 target = 11
 
-result = findTwoSum(nums,target)
+result = find_two_sum(nums, target)
 
 print(result)
