@@ -32,5 +32,7 @@ def calc_area(closure):
 # print(result)
 
 tanks = [0,1,0,2,1,0,3,1,0,1,2]
+tanks = [0,1,0,2,1,0,3,1,0,1,1]
+# tanks = [3,4,3]
 result = calc_rainwater_to_trap(tanks)
 print(result)
