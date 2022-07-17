@@ -1,46 +1,25 @@
 def get_longest_non_repeat_substring(string):
-    longest = 0
-
-    final_left = 0
-    final_right = 0
-
+    seen = {}
     left = 0
     right = 0
+    longest = 0
 
-    hashmap = {}
-
-    length = len(string)
-
-    while right < length:
+    while right < len(string):
         char = string[right]
-        if char not in hashmap:
-            hashmap[char] = right
-            right += 1
-        else:
-            cur_length = right - left
-            if cur_length > longest:
-                longest = cur_length
-                final_left = left
-                final_right = right
+        if (char in seen) and (seen[char] >= left):
+            left = seen[char] + 1
 
-            gap = hashmap[char] - left + 1
-            left += gap
-            right += gap
-            continue
+        seen[char] = right
+        longest = max(longest, right - left + 1)
+        right += 1
 
-    cur_length = right - left
-    if cur_length > longest:
-        longest = cur_length
-        final_left = left
-        final_right = right
-
-    return longest, string[final_left:final_right]
-
+    return longest
 
 
 string = 'abcbbd'
-string = 'abcdbghi'
+# string = 'abcdbghi'
 string = 'abcdcahi'
+string = 'abcbdaac'
 
 lss = get_longest_non_repeat_substring(string)
 print(lss)
