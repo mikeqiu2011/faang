@@ -1,14 +1,12 @@
 def get_string_after_backspace(string):
     result = []
-    i = 0
-    while i < len(string):
+    for i in range(len(string)):
         char = string[i]
         if char != '#':
             result.append(char)
         else:
             if len(result) > 0:
                 result.pop()
-        i += 1
 
     return result
 
