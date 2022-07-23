@@ -5,7 +5,6 @@ class Node:
         self.next = next
 
 
-
 class LinkedList:
     def __init__(self, value):
         node = Node(value)
@@ -47,7 +46,38 @@ class LinkedList:
         if left < 1 or right > self.length or left > right:
             return False
 
+        node_before_start = self.get_node_before_position(left)
+        print(f'node before start: {node_before_start.value}')
+        start = node_before_start.next
 
+        temp_list = LinkedList(start.value)
+        cur = start.next
+
+        for i in range(right - left):
+            temp_list.add_node(cur.value)
+            cur = cur.next
+
+        node_after_end = cur
+        print(f'node after end: {node_after_end.value}')
+
+        print('temp list is:')
+        temp_list.display()
+
+        temp_list = temp_list.reverse()
+        print('temp list after reverse')
+        temp_list.display()
+
+        node_before_start.next = temp_list.head
+        temp_list.tail.next = node_after_end
+
+        return self
+
+    def get_node_before_position(self, n):
+        node = self.head
+        for i in range(1, n - 1):
+            node = node.next
+
+        return node
 
 
 linkedList = LinkedList(1)
@@ -56,4 +86,9 @@ linkedList.add_node(3)
 linkedList.add_node(4)
 linkedList.add_node(5)
 linkedList.display()
-linkedList.reverse().display()
+# linkedList.reverse().display()
+
+# print(linkedList.get_node_before_position(3).value)
+
+print('postitional reverse')
+linkedList.reverseBetween(2,4).display()
