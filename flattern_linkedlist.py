@@ -136,8 +136,37 @@ def checkLinks(head, lists=None):
     return all(lists)
 
 
+def flattern_list(head: Node):
+    if not head:
+        return head
+
+    currentNode = head
+
+    while currentNode:
+        if not currentNode.child:
+            currentNode = currentNode.next
+        else:
+            # node_after = currentNode.next
+            tail = currentNode.child
+            while tail.next:
+                tail = tail.next
+
+            tail.next = currentNode.next
+            if tail.next:
+                tail.next.prev = tail
+
+            currentNode.next = currentNode.child
+            currentNode.next.prev = currentNode
+            currentNode.child = None
+
+    return head
+
+
 # Example to show usage
 array = [1, 2, 3, 4, 5, 6, null, null, null, 7, 8, 9, 10, null, null, 11, 12]
 head = makeLists(array)
 printLists(head)
 print(checkLinks(head))
+
+fl_list = flattern_list(head)
+printLists(fl_list)
