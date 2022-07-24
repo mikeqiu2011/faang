@@ -43,27 +43,22 @@ def minimum_parenthese_to_remove(string: str):
     return result_left
 
 def minimum_parenthese_to_remove2(string: str):
-    left_stack = []
-    right_stack = []
+    result = list(string)
+    stack = []
+
     for i, s in enumerate(string):
         if s == '(':
-            left_stack.append(i)
+            stack.append(i)
         elif s == ')':
-            if len(left_stack):
-                left_stack.pop()
+            if len(stack):
+                stack.pop()
             else:
-                right_stack.append(i)
+                result[i] = ''
 
-    print(left_stack, right_stack)
+    for i in stack:
+        result[i] = ''
 
-    li = left_stack + right_stack
-    result = []
-
-    for i, s in enumerate(string):
-        if i not in li:
-            result.append(string[i])
-
-    return result
+    return ''.join(result)
 
 
 
