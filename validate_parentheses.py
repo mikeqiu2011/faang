@@ -2,40 +2,30 @@ def validate_parentheses(string):
     if not string:
         return True
 
+    pairs = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
     stack = []
-    left = ['(','{','[']
-    right = [')','}',']']
+
     for s in string:
-        if s in left:
+        if s in pairs:
             stack.append(s)
-        elif s in right:
+        elif s in pairs.values():
             if len(stack) == 0:
                 return False
-            prev = stack.pop()
-            if not is_pair(prev, s):
+            left_bracket = stack.pop()
+            correct_bracket = pairs[left_bracket]
+            if s != correct_bracket:
                 return False
         else:
             print('invalid input')
             return False
 
     print(stack)
-    if len(stack): # there is still item in the stack:
-        return False
+    return len(stack) == 0
 
-    return True
-
-
-def is_pair(left, right):
-    pairs = {
-        '(': ')',
-        '[': ']',
-        '{': '}'
-    }
-
-    if left not in pairs:
-        return False
-
-    return pairs[left] == right
 
 if __name__ == '__main__':
     test = '({[]})'
@@ -43,7 +33,8 @@ if __name__ == '__main__':
     test = '({[]})]'
     test = '[({[]})'
     test = '{[(])}'
-    test = '{[]()}'
+    test = '{[())}'
+    # test = '{[]()}'
 
     result = validate_parentheses(test)
     print(result)
