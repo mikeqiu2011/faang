@@ -12,10 +12,11 @@ def validate_parentheses(string):
             if len(stack) == 0:
                 return False
             prev = stack.pop()
-            if not isPair(prev, s):
+            if not is_pair(prev, s):
                 return False
         else:
-            print('invalid string')
+            print('invalid input')
+            return False
 
     print(stack)
     if len(stack): # there is still item in the stack:
@@ -24,21 +25,27 @@ def validate_parentheses(string):
     return True
 
 
-def isPair(left, right):
-    if left == '[' and right == ']':
-        return True
-    elif left == '(' and right == ')':
-        return True
-    elif left == '{' and right == '}':
-        return True
-    else:
+def is_pair(left, right):
+    pairs = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+
+    if left not in pairs:
         return False
+
+    return pairs[left] == right
 
 if __name__ == '__main__':
     test = '({[]})'
     test = ''
     test = '({[]})]'
     test = '[({[]})'
+    test = '{[(])}'
+    test = '{[]()}'
 
     result = validate_parentheses(test)
     print(result)
+
+    # print(is_pair('p',']'))
