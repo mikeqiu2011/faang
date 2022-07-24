@@ -1,4 +1,3 @@
-import re
 def minimum_parenthese_to_remove(string: str):
     left = 0
     right = len(string) - 1
@@ -43,6 +42,28 @@ def minimum_parenthese_to_remove(string: str):
     print(result_left)
     return result_left
 
+def minimum_parenthese_to_remove2(string: str):
+    left_stack = []
+    right_stack = []
+    for i, s in enumerate(string):
+        if s == '(':
+            left_stack.append(i)
+        elif s == ')':
+            if len(left_stack):
+                left_stack.pop()
+            else:
+                right_stack.append(i)
+
+    print(left_stack, right_stack)
+
+    li = left_stack + right_stack
+    result = []
+
+    for i, s in enumerate(string):
+        if i not in li:
+            result.append(string[i])
+
+    return result
 
 
 
@@ -50,6 +71,8 @@ def minimum_parenthese_to_remove(string: str):
 test = 'a)bc(d)'
 test = '))(('
 test = ')(ab)('
-test = ')(ab(('
-minimum_parenthese_to_remove(test)
+# test = ')(ab(('
+result = minimum_parenthese_to_remove2(test)
+
+print(result)
 
